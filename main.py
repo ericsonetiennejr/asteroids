@@ -19,9 +19,9 @@ def main():
                 return
         screen.fill((0,0,0), rect=None)
         player_one.draw(screen)
+        player_one.update(dt)
         pygame.display.flip()
-        game_clock.tick(60)
-        dt = game_clock.tick()/1000 #Convert from ms to s.
+        dt = game_clock.tick(60)/1000
         print(f"Current delta time {dt}")
 
 if __name__ =="__main__":
