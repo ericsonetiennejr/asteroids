@@ -9,19 +9,24 @@ def main():
     game_clock = pygame.time.Clock()
     dt = 0 #Represents time since the last frame was drawn.
     screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-    player_one = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
+    
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
-
     
+    updatable_objects = pygame.sprite.Group()
+    drawable_objects = pygame.sprite.Group()
+    Player.containers =(updatable_objects,drawable_objects)
+    player_one = Player(SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         screen.fill((0,0,0), rect=None)
-        player_one.draw(screen)
-        player_one.update(dt)
+        for member in drawable_objects:
+            member.draw(screen)
+        for member in updatable_objects:
+            member.update(dt)
         pygame.display.flip()
         dt = game_clock.tick(60)/1000
         print(f"Current delta time {dt}")
